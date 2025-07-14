@@ -1,0 +1,52 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened class="sidebar">
+    <div class="sidebar-header">
+      <span class="app-title">QA Platform</span>
+    </div>
+    <mat-nav-list class="sidebar-nav">
+      <a mat-list-item [routerLink]="['/dashboard']" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+      <a mat-list-item [routerLink]="['/versions']" routerLinkActive="active">
+        <mat-icon>cloud_upload</mat-icon>
+        <span>Versões</span>
+      </a>
+      <a mat-list-item [routerLink]="['/users']" routerLinkActive="active">
+        <mat-icon>group</mat-icon>
+        <span>Usuários</span>
+      </a>
+      <a mat-list-item [routerLink]="['/clients']" routerLinkActive="active">
+        <mat-icon>business</mat-icon>
+        <span>Clientes</span>
+      </a>
+      </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <mat-toolbar color="primary" class="main-header">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>QA Platform</span>
+      <span class="spacer"></span> <button mat-icon-button class="header-button" [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>person</mat-icon>
+          <span>Perfil</span>
+        </button>
+        <button mat-menu-item (click)="onLogout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Sair</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <div class="router-outlet-container">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,227 @@
+@import '../../styles.scss';
+
+.versions-container {
+  padding: 20px;
+  background-color: $background-color;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h2 {
+    font-size: 28px;
+    color: $text-color;
+    margin: 0;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    font-size: 16px;
+  }
+}
+
+/* Estilos para a nova seção de filtros */
+.filter-section-card {
+  background-color: $card-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+
+  .filter-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); // Colunas responsivas
+    gap: 15px;
+    align-items: flex-end; // Alinha os campos na parte inferior
+
+    .filter-field,
+    .search-field {
+      width: 100%; // Garante que os campos preencham a coluna
+    }
+
+    .search-field {
+      grid-column: span 1; // Pode ajustar para ocupar mais colunas se necessário
+    }
+  }
+}
+
+
+.versions-table-card {
+  background-color: $card-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th.mat-header-cell {
+      background-color: lighten($background-color, 2%);
+      color: $text-secondary;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 15px 20px;
+      text-align: left;
+      border-bottom: 1px solid $input-border;
+      white-space: nowrap; // Evita quebra de linha nos cabeçalhos
+
+      &:last-child {
+        text-align: center;
+      }
+    }
+
+    td.mat-cell {
+      color: $text-color;
+      font-size: 15px;
+      padding: 15px 20px;
+      border-bottom: 1px solid $input-border;
+      vertical-align: middle;
+      white-space: nowrap; // Evita quebra de linha nos dados da célula
+
+      &:last-child {
+        text-align: center;
+      }
+    }
+
+    tr.mat-row:last-child td.mat-cell {
+      border-bottom: none;
+    }
+  }
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background-color: #e0e0e0;
+  color: #424242;
+
+  &.status-in-test {
+    background-color: #fff3e0;
+    color: #ef6c00;
+  }
+
+  &.status-approved {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  &.status-published {
+    background-color: #e3f2fd;
+    color: #1565c0;
+  }
+
+  &.status-archived {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+  }
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 900px) {
+  .filter-section-card .filter-row {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .header-section h2 {
+    margin-bottom: 0;
+  }
+
+  .versions-table-card {
+    padding: 0;
+  }
+
+  table {
+    font-size: 14px;
+
+    th.mat-header-cell,
+    td.mat-cell {
+      padding: 10px 15px;
+    }
+  }
+
+  .filter-section-card .filter-row {
+    grid-template-columns: 1fr; // Uma coluna em telas muito pequenas
+  }
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background-color: #e0e0e0;
+  color: #424242;
+
+  // Cores para Status de Versão
+  &.status-in-test {
+    background-color: #fff3e0; // Laranja claro
+    color: #ef6c00; // Laranja escuro
+  }
+
+  &.status-approved {
+    background-color: #e8f5e9; // Verde claro
+    color: #2e7d32; // Verde escuro
+  }
+
+  &.status-published {
+    background-color: #e3f2fd; // Azul claro
+    color: #1565c0; // Azul escuro
+  }
+
+  &.status-archived {
+    background-color: #f3e5f5; // Roxo claro
+    color: #6a1b9a; // Roxo escuro
+  }
+
+  // NOVO: Cores para Status de Merge
+  &.status-merged {
+    background-color: #e8f5e9; // Verde claro (igual ao approved)
+    color: #2e7d32; // Verde escuro (igual ao approved)
+  }
+
+  &.status-not-merged {
+    background-color: #ffebee; // Vermelho claro
+    color: #d32f2f; // Vermelho escuro
+  }
+
+  &.status-pending-merge {
+    background-color: #e0e0e0; // Cinza claro (igual ao default)
+    color: #424242; // Cinza escuro (igual ao default)
+  }
+
+  &.status-desirable-merge {
+    background-color: #fffde7; // Amarelo claro
+    color: #fbc02d; // Amarelo escuro
+  }
+}

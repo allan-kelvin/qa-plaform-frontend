@@ -1,0 +1,57 @@
+<div class="dashboard-container">
+  <div class="stats-cards-grid">
+    <mat-card class="stat-card">
+      <div class="card-content">
+        <mat-icon class="card-icon">people</mat-icon>
+        <div class="card-info">
+          <span class="card-value">{{ totalClients }}</span>
+          <span class="card-label">Clientes Totais</span>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="card-content">
+        <mat-icon class="card-icon">folder_open</mat-icon>
+        <div class="card-info">
+          <span class="card-value">{{ activeProjects }}</span>
+          <span class="card-label">Projetos Ativos</span>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="card-content">
+        <mat-icon class="card-icon">pending_actions</mat-icon>
+        <div class="card-info">
+          <span class="card-value">{{ pendingTasks }}</span>
+          <span class="card-label">Tarefas Pendentes</span>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="card-content">
+        <mat-icon class="card-icon">check_circle_outline</mat-icon>
+        <div class="card-info">
+          <span class="card-value">{{ completedTasks }}</span>
+          <span class="card-label">Tarefas Concluídas</span>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="dashboard-section">
+    <h2>Visão Geral dos Testes (Gráfico - Futuro)</h2>
+    <mat-card>
+      <p>Espaço para o gráfico de visão geral dos testes.</p>
+    </mat-card>
+  </div>
+
+  <div class="dashboard-section">
+    <h2>Últimas Atividades (Tabela - Futuro)</h2>
+    <mat-card>
+      <p>Espaço para a tabela de últimas atividades.</p>
+    </mat-card>
+  </div>
+</div>

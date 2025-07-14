@@ -1,1 +1,72 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$qa-platform-frontend-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+:root {
+  @include mat.all-component-themes($qa-platform-frontend-theme);
+}
+
+$primary-color: #287BFF;
+$secondary-color: #F7F9FC;
+$background-color: #F7F9FC;
+$card-color: #FFFFFF;
+$text-color: #1C1E21;
+$text-secondary: #5F6B7C;
+$sidebar-bg-color: #2c2f36;
+$sidebar-text-color: #C3C6CF;
+$sidebar-item-hover-bg: #2A3142;
+$sidebar-item-active-bg: #3A4458;
+$sidebar-item-active-color: #FFFFFF;
+$sidebar-icon-color: #C3C6CF;
+
+$status-confirmed: #D1FADF;
+$status-desired: #FFF4CE;
+$chip-bg: #EEF4FF;
+$input-border: #D0D0D0;
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: $sidebar-text-color;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.snackbar-success {
+  background-color: #4CAF50 !important;
+  color: white !important;
+}
+
+.snackbar-error {
+  background-color: #F44336 !important;
+  color: white !important;
+}
+
+.snackbar-info {
+  background-color: #2196F3 !important;
+  color: white !important;
+}

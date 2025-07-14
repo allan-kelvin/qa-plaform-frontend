@@ -1,0 +1,139 @@
+<div class="version-form-container">
+  <div class="header-section">
+    <button mat-icon-button (click)="onCancel()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>{{ isEditMode ? 'Editar Versão' : 'Nova Versão' }}</h2>
+  </div>
+
+  <mat-card class="version-form-card">
+    <form [formGroup]="versionForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Versão</mat-label>
+          <input matInput formControlName="nome" required>
+          <mat-error *ngIf="versionForm.get('nome')?.hasError('required') && versionForm.get('nome')?.touched">
+            Versão é obrigatória.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tarefa</mat-label>
+          <input matInput formControlName="tarefa" required>
+          <mat-error *ngIf="versionForm.get('tarefa')?.hasError('required') && versionForm.get('tarefa')?.touched">
+            Tarefa é obrigatória.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Área</mat-label>
+          <mat-select formControlName="area" required>
+            <mat-option *ngFor="let area of areas" [value]="area">
+              {{ area }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="versionForm.get('area')?.hasError('required') && versionForm.get('area')?.touched">
+            Área é obrigatória.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cliente</mat-label>
+          <mat-select formControlName="cliente" required>
+            <mat-option *ngFor="let cli of clientes" [value]="cli">
+              {{ cli }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="versionForm.get('cliente')?.hasError('required') && versionForm.get('cliente')?.touched">
+            Cliente é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="tipo" required>
+            <mat-option *ngFor="let tipo of tipos" [value]="tipo">
+              {{ tipo }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="versionForm.get('tipo')?.hasError('required') && versionForm.get('tipo')?.touched">
+            Tipo é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>QA Responsável</mat-label>
+          <mat-select formControlName="qa" required>
+            <mat-option *ngFor="let qa of qas" [value]="qa">
+              {{ qa }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="versionForm.get('qa')?.hasError('required') && versionForm.get('qa')?.touched">
+            QA é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Status Merge</mat-label>
+          <mat-select formControlName="merge" required>
+            <mat-option *ngFor="let m of merges" [value]="m">
+              {{ m }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="versionForm.get('merge')?.hasError('required') && versionForm.get('merge')?.touched">
+            Status Merge é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Status Script</mat-label>
+          <mat-select formControlName="script" required>
+            <mat-option *ngFor="let s of scripts" [value]="s">
+              {{ s }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="versionForm.get('script')?.hasError('required') && versionForm.get('script')?.touched">
+            Status Script é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Data de Lançamento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dataLancamento" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="versionForm.get('dataLancamento')?.hasError('required') && versionForm.get('dataLancamento')?.touched">
+            Data de Lançamento é obrigatória.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Status da Versão</mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option *ngFor="let s of statusOptions" [value]="s">
+              {{ s }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="versionForm.get('status')?.hasError('required') && versionForm.get('status')?.touched">
+            Status da Versão é obrigatório.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput formControlName="descricao" rows="3" required></textarea>
+        <mat-error *ngIf="versionForm.get('descricao')?.hasError('required') && versionForm.get('descricao')?.touched">
+          Descrição é obrigatória.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="versionForm.invalid">
+          {{ isEditMode ? 'Salvar Alterações' : 'Cadastrar Versão' }}
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

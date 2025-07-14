@@ -1,0 +1,92 @@
+<div class="client-form-container">
+  <div class="header-section">
+    <button mat-icon-button (click)="onCancel()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>{{ isEditMode ? 'Editar Cliente' : 'Novo Cliente' }}</h2>
+  </div>
+
+  <mat-card class="client-form-card">
+    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome da Empresa</mat-label>
+          <input matInput formControlName="nome" required>
+          <mat-error *ngIf="clientForm.get('nome')?.hasError('required') && clientForm.get('nome')?.touched">
+            Nome da empresa é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>CNPJ (XX.XXX.XXX/XXXX-XX)</mat-label>
+          <input matInput formControlName="cnpj" placeholder="Ex: 00.000.000/0000-00" required>
+          <mat-error *ngIf="clientForm.get('cnpj')?.hasError('required') && clientForm.get('cnpj')?.touched">
+            CNPJ é obrigatório.
+          </mat-error>
+          <mat-error *ngIf="clientForm.get('cnpj')?.hasError('pattern') && clientForm.get('cnpj')?.touched">
+            Formato de CNPJ inválido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nome do Contato Principal</mat-label>
+          <input matInput formControlName="contatoPrincipal" required>
+          <mat-error *ngIf="clientForm.get('contatoPrincipal')?.hasError('required') && clientForm.get('contatoPrincipal')?.touched">
+            Nome do contato é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail do Contato</mat-label>
+          <input matInput formControlName="emailContato" type="email" required>
+          <mat-error *ngIf="clientForm.get('emailContato')?.hasError('required') && clientForm.get('emailContato')?.touched">
+            E-mail é obrigatório.
+          </mat-error>
+          <mat-error *ngIf="clientForm.get('emailContato')?.hasError('email') && clientForm.get('emailContato')?.touched">
+            Formato de e-mail inválido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Telefone do Contato ((XX) XXXXX-XXXX)</mat-label>
+          <input matInput formControlName="telefoneContato" placeholder="Ex: (00) 00000-0000" required>
+          <mat-error *ngIf="clientForm.get('telefoneContato')?.hasError('required') && clientForm.get('telefoneContato')?.touched">
+            Telefone é obrigatório.
+          </mat-error>
+          <mat-error *ngIf="clientForm.get('telefoneContato')?.hasError('pattern') && clientForm.get('telefoneContato')?.touched">
+            Formato de telefone inválido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Status do Cliente</mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option *ngFor="let status of statusOptions" [value]="status">
+              {{ status }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="clientForm.get('status')?.hasError('required') && clientForm.get('status')?.touched">
+            Status é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Data de Cadastro</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dataCadastro" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="clientForm.get('dataCadastro')?.hasError('required') && clientForm.get('dataCadastro')?.touched">
+            Data de Cadastro é obrigatória.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="clientForm.invalid">
+          {{ isEditMode ? 'Salvar Alterações' : 'Cadastrar Cliente' }}
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

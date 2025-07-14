@@ -1,0 +1,136 @@
+<div class="versions-container">
+  <div class="header-section">
+    <h2>Versões</h2>
+    <button mat-raised-button color="primary" routerLink="/versions/new">
+      <mat-icon>add</mat-icon>
+      Adicionar
+    </button>
+  </div>
+
+  <mat-card class="filter-section-card">
+    <div class="filter-row">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Área</mat-label>
+        <mat-select [formControl]="areaFilter">
+          <mat-option value="">Todas</mat-option>
+          <mat-option value="Financeiro">Financeiro</mat-option>
+          <mat-option value="Marketing">Marketing</mat-option>
+          <mat-option value="RH">RH</mat-option>
+          <mat-option value="Vendas">Vendas</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Cliente</mat-label>
+        <mat-select [formControl]="clienteFilter">
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="Cliente A">Cliente A</mat-option>
+          <mat-option value="Cliente B">Cliente B</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Tipo</mat-label>
+        <mat-select [formControl]="tipoFilter">
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="Correção">Correção</mat-option>
+          <mat-option value="Melhoria">Melhoria</mat-option>
+          <mat-option value="Alteração">Alteração</mat-option>
+          <mat-option value="Desejável">Desejável</mat-option>
+          <mat-option value="Confirmado">Confirmado</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Pesquisar</mat-label>
+        <input matInput [formControl]="searchControl" placeholder="Ex: Versão, Tarefa, Descrição">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+  <mat-card class="versions-table-card">
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+
+        <ng-container matColumnDef="area">
+          <th mat-header-cell *matHeaderCellDef> Área </th>
+          <td mat-cell *matCellDef="let version"> {{ version.area }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cliente">
+          <th mat-header-cell *matHeaderCellDef> Cliente </th>
+          <td mat-cell *matCellDef="let version"> {{ version.cliente }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef> Tipo </th>
+          <td mat-cell *matCellDef="let version"> {{ version.tipo }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef> Versão </th>
+          <td mat-cell *matCellDef="let version"> {{ version.nome }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tarefa">
+          <th mat-header-cell *matHeaderCellDef> Tarefa </th>
+          <td mat-cell *matCellDef="let version"> {{ version.tarefa }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descricao">
+          <th mat-header-cell *matHeaderCellDef> Descrição </th>
+          <td mat-cell *matCellDef="let version"> {{ version.descricao }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="qa">
+          <th mat-header-cell *matHeaderCellDef> QA </th>
+          <td mat-cell *matCellDef="let version"> {{ version.qa }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="merge">
+          <th mat-header-cell *matHeaderCellDef> Merge </th>
+          <td mat-cell *matCellDef="let version">
+            <span class="status-chip" [ngClass]="getMergeClass(version.merge)">
+              {{ version.merge }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="script">
+          <th mat-header-cell *matHeaderCellDef> Script </th>
+          <td mat-cell *matCellDef="let version"> {{ version.script }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dataLancamento">
+          <th mat-header-cell *matHeaderCellDef> Data Lançamento </th>
+          <td mat-cell *matCellDef="let version"> {{ version.dataLancamento | date:'shortDate' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let version">
+            <span class="status-chip" [ngClass]="getStatusClass(version.status)">
+              {{ version.status }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let version">
+            <button mat-icon-button [routerLink]="['/versions/edit', version.id]" color="primary">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteVersion(version)" color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card>
+</div>

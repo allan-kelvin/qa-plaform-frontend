@@ -1,0 +1,98 @@
+@import '../../../styles.scss';
+
+.user-form-container {
+  padding: 20px;
+  background-color: $background-color;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.header-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h2 {
+    font-size: 28px;
+    color: $text-color;
+    margin: 0 0 0 10px; // Espaço entre o botão de voltar e o título
+  }
+
+  button.mat-icon-button {
+    color: $text-secondary;
+  }
+}
+
+.user-form-card {
+  background-color: $card-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; // Espaço entre as seções do formulário
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .active-checkbox {
+    align-self: flex-start; // Alinha o checkbox no início do grid item
+    margin-top: 10px; // Ajuste para alinhar com os campos
+    .mdc-checkbox__native-control:checked ~ .mdc-checkbox__background {
+      background-color: $primary-color !important; // Cor de fundo do checkbox marcado
+    }
+    .mdc-checkbox__checkmark {
+      color: $card-color !important; // Cor do 'check'
+    }
+  }
+
+  .permissions-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid $input-border;
+
+    h3 {
+      font-size: 20px;
+      color: $text-color;
+      margin-bottom: 15px;
+    }
+
+    .permissions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+
+    button {
+      padding: 10px 25px;
+      font-size: 16px;
+    }
+  }
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .user-form-card {
+    padding: 20px;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

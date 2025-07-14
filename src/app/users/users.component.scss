@@ -1,0 +1,153 @@
+@import '../../styles.scss';
+.users-page-container {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 64px); // Ajuste conforme a altura do seu header
+  background-color: $background-color; // Cor de fundo da página
+}
+
+.users-card {
+  width: 100%;
+  max-width: 1200px; // Limita a largura máxima do card para o conteúdo
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); // Sombra mais sutil
+  border-radius: 8px; // Bordas arredondadas do card
+  overflow: hidden; // Garante que nada saia do card
+}
+
+.users-card-header {
+  display: flex;
+  justify-content: space-between; // Espaça título e botão
+  align-items: center;
+  padding: 20px 24px; // Adiciona padding no header
+  border-bottom: 1px solid #eee; // Linha separadora
+  background-color: $card-color; // Fundo branco para o header
+}
+
+.page-title {
+  margin: 0; // Remove margem padrão do título
+  font-size: 24px;
+  font-weight: 500;
+  color: $text-color;
+}
+
+.add-button {
+  min-width: 120px;
+  padding: 0 16px;
+  height: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+.users-table-content {
+  padding: 20px 24px; // Padding para o conteúdo do card que contém a tabela
+  background-color: $card-color;
+}
+
+.user-table-wrapper {
+  overflow-x: auto; // Permite rolagem horizontal em telas pequenas
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05); // Sombra mais leve para a tabela
+}
+
+.mat-table {
+  width: 100%;
+  min-width: 700px; // Garante uma largura mínima para a tabela em telas menores
+  background-color: $card-color;
+
+  .mat-header-cell {
+    color: $text-secondary; // Cor do texto dos cabeçalhos
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+
+  .mat-cell {
+    color: $text-color;
+    font-size: 14px;
+    padding: 8px 16px; // Ajuste o padding para o conteúdo da célula
+    vertical-align: top; // Alinha o conteúdo ao topo, importante para a célula Nome/Email
+  }
+
+  // Estilo para a célula 'Nome' que contém nome e email
+  .mat-column-nome {
+    min-width: 200px; // Garante largura suficiente
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      .user-name {
+        font-weight: 500;
+        color: $text-color;
+      }
+      .user-email {
+        font-size: 12px;
+        color: $text-secondary;
+      }
+    }
+  }
+
+  // Estilo para os botões dentro da coluna de permissões
+  .mat-column-permissoes {
+    min-width: 180px; // Garante espaço para os botões
+    .permission-action-button {
+      margin-right: 8px; // Espaço entre os botões
+      padding: 0 8px;
+      min-width: 60px;
+      height: 30px;
+      font-size: 13px;
+      border-radius: 4px; // Bordas arredondadas para os botões de ação
+      border: 1px solid #ccc; // Borda sutil nos botões
+      line-height: 30px;
+    }
+    .mat-button.mat-primary.permission-action-button {
+        color: $primary-color;
+        border-color: $primary-color;
+        background-color: transparent;
+        &:hover {
+          background-color: rgba($primary-color, 0.04);
+        }
+    }
+    .mat-button.mat-warn.permission-action-button {
+        color: red;
+        border-color: red;
+        background-color: transparent;
+        &:hover {
+          background-color: rgba(red, 0.04);
+        }
+    }
+  }
+
+  // Estilo para a célula do toggle 'Ativo'
+  .mat-column-ativo {
+    text-align: center; // Centraliza o toggle
+    width: 80px; // Largura fixa
+  }
+}
+
+.mat-paginator {
+  background-color: $card-color;
+  border-top: 1px solid #eee;
+}
+
+/* Ajustes Responsivos */
+@media (max-width: 768px) {
+  .users-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    .add-button {
+      width: 100%;
+      margin-top: 15px;
+    }
+  }
+  .mat-table {
+    min-width: unset; // Remove a largura mínima em telas menores para permitir que se ajuste
+  }
+  .users-table-content {
+    padding: 10px; // Reduz o padding em telas menores
+  }
+  .users-page-container {
+    padding: 10px;
+  }
+}
