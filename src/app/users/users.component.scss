@@ -1,32 +1,32 @@
 @import '../../styles.scss';
+
 .users-page-container {
-  padding: 20px;
+   padding: 24px; // ou 16px se quiser menos espaço
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: calc(100vh - 64px); // Ajuste conforme a altura do seu header
-  background-color: $background-color; // Cor de fundo da página
+  flex-direction: column; // evita centralização
+  align-items: stretch;
+  background-color: $background-color;
 }
 
 .users-card {
   width: 100%;
-  max-width: 1200px; // Limita a largura máxima do card para o conteúdo
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05); // Sombra mais sutil
-  border-radius: 8px; // Bordas arredondadas do card
-  overflow: hidden; // Garante que nada saia do card
+  max-width: 100%; // adicione esta linha
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .users-card-header {
   display: flex;
-  justify-content: space-between; // Espaça título e botão
+  justify-content: space-between;
   align-items: center;
-  padding: 20px 24px; // Adiciona padding no header
-  border-bottom: 1px solid #eee; // Linha separadora
-  background-color: $card-color; // Fundo branco para o header
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+  background-color: $card-color;
 }
 
 .page-title {
-  margin: 0; // Remove margem padrão do título
+  margin: 0;
   font-size: 24px;
   font-weight: 500;
   color: $text-color;
@@ -42,23 +42,24 @@
 }
 
 .users-table-content {
-  padding: 20px 24px; // Padding para o conteúdo do card que contém a tabela
+  padding: 20px 24px;
   background-color: $card-color;
 }
 
 .user-table-wrapper {
-  overflow-x: auto; // Permite rolagem horizontal em telas pequenas
+  overflow-x: auto;
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05); // Sombra mais leve para a tabela
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .mat-table {
   width: 100%;
-  min-width: 700px; // Garante uma largura mínima para a tabela em telas menores
+  min-width: 700px;
   background-color: $card-color;
+  border-radius: 4px;
 
   .mat-header-cell {
-    color: $text-secondary; // Cor do texto dos cabeçalhos
+    color: $text-secondary;
     font-weight: 500;
     font-size: 14px;
     padding: 12px 16px;
@@ -67,38 +68,20 @@
   .mat-cell {
     color: $text-color;
     font-size: 14px;
-    padding: 8px 16px; // Ajuste o padding para o conteúdo da célula
-    vertical-align: top; // Alinha o conteúdo ao topo, importante para a célula Nome/Email
+    padding: 8px 16px;
+    vertical-align: top;
   }
 
-  // Estilo para a célula 'Nome' que contém nome e email
-  .mat-column-nome {
-    min-width: 200px; // Garante largura suficiente
-    .user-info {
-      display: flex;
-      flex-direction: column;
-      .user-name {
-        font-weight: 500;
-        color: $text-color;
-      }
-      .user-email {
-        font-size: 12px;
-        color: $text-secondary;
-      }
-    }
-  }
-
-  // Estilo para os botões dentro da coluna de permissões
   .mat-column-permissoes {
-    min-width: 180px; // Garante espaço para os botões
+    min-width: 180px;
     .permission-action-button {
-      margin-right: 8px; // Espaço entre os botões
+      margin-right: 8px;
       padding: 0 8px;
       min-width: 60px;
       height: 30px;
       font-size: 13px;
-      border-radius: 4px; // Bordas arredondadas para os botões de ação
-      border: 1px solid #ccc; // Borda sutil nos botões
+      border-radius: 4px;
+      border: 1px solid #ccc;
       line-height: 30px;
     }
     .mat-button.mat-primary.permission-action-button {
@@ -119,10 +102,9 @@
     }
   }
 
-  // Estilo para a célula do toggle 'Ativo'
   .mat-column-ativo {
-    text-align: center; // Centraliza o toggle
-    width: 80px; // Largura fixa
+    text-align: center;
+    width: 80px;
   }
 }
 
@@ -142,10 +124,10 @@
     }
   }
   .mat-table {
-    min-width: unset; // Remove a largura mínima em telas menores para permitir que se ajuste
+    min-width: unset;
   }
   .users-table-content {
-    padding: 10px; // Reduz o padding em telas menores
+    padding: 10px;
   }
   .users-page-container {
     padding: 10px;

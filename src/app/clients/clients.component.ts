@@ -1,21 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
+import { ClienteDTO, ClientesService } from '../services/clientes.service';
 
-export interface Client {
-  id: number;
-  nome: string;
-  cnpj: string;
-  contatoPrincipal: string;
-  emailContato: string;
-  telefoneContato: string;
-  status: 'Ativo' | 'Inativo' | 'Suspenso';
-  dataCadastro: string;
-}
+
 
 @Component({
   selector: 'app-clients',
@@ -26,24 +23,64 @@ export interface Client {
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatPaginator,
+    MatSlideToggle,
+    MatSnackBarModule,
+    MatFormFieldModule
   ],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.scss'
 })
 export class ClientsComponent {
 
-  displayedColumns: string[] = ['nome', 'cnpj', 'contatoPrincipal', 'emailContato', 'telefoneContato', 'status', 'actions'];
+  displayedColumns: string[] = ['nome', 'cnpj', 'status', 'actions'];
+  originalClientes: any[] = [];
 
-  // Dados de exemplo (mockados) para a tabela de clientes
-  dataSource: Client[] = [
-    { id: 1, nome: 'Tech Solutions Ltda.', cnpj: '12.345.678/0001-90', contatoPrincipal: 'Ana Costa', emailContato: 'ana.costa@techsolutions.com', telefoneContato: '(11) 98765-4321', status: 'Ativo', dataCadastro: '2023-01-10' },
-    { id: 2, nome: 'Inova Digital S.A.', cnpj: '98.765.432/0001-21', contatoPrincipal: 'Bruno Mendes', emailContato: 'bruno.mendes@inovadigital.com', telefoneContato: '(21) 91234-5678', status: 'Ativo', dataCadastro: '2023-03-22' },
-    { id: 3, nome: 'Alpha Consultoria', cnpj: '45.678.901/0001-34', contatoPrincipal: 'Carla Silva', emailContato: 'carla.silva@alphaconsultoria.com', telefoneContato: '(31) 99876-5432', status: 'Inativo', dataCadastro: '2023-05-01' },
-    { id: 4, nome: 'Beta Indústria', cnpj: '21.098.765/0001-56', contatoPrincipal: 'Daniela Lima', emailContato: 'daniela.lima@betaindustria.com', telefoneContato: '(41) 97654-3210', status: 'Suspenso', dataCadastro: '2023-07-18' },
-  ];
+  constructor(
+    private clientesService: ClientesService,
+    private snackBar: MatSnackBar
+  ) { }
 
-  // Método para obter a classe CSS baseada no status do cliente
+  dataSource = new MatTableDataSource<ClienteDTO>();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  ngOnInit(): void {
+    this.carregarClientes();
+  }
+
+  carregarClientes(): void {
+    this.clientesService.getAll().subscribe({
+      next: (clientes) => {
+        const dataComStatus = clientes.map(cliente => ({
+          ...cliente,
+          status: cliente.ativo ? 'Ativo' : 'Inativo'
+        }));
+        this.originalClientes = dataComStatus;
+        this.dataSource.data = dataComStatus;
+      },
+      error: (err) => {
+        console.error('Erro ao buscar clientes', err);
+        alert('Erro ao buscar clientes!');
+      }
+    });
+  }
+
+
+  filtrarClientes(termo: string): void {
+    const filtro = termo.toLowerCase().trim();
+    this.dataSource.data = this.originalClientes.filter(cliente =>
+      cliente.nome.toLowerCase().includes(filtro) ||
+      cliente.cnpj.toLowerCase().includes(filtro)
+    );
+  }
+  @ViewChild(MatSort) sort!: MatSort;
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+  }
+
   getStatusClass(status: string): string {
     switch (status) {
       case 'Ativo': return 'status-active';
@@ -53,14 +90,43 @@ export class ClientsComponent {
     }
   }
 
-  // Métodos para ações (por enquanto, apenas placeholders)
-  deleteClient(client: Client): void {
+  toggleStatus(client: any): void {
+    const updatedStatus = !client.ativo;
+    const updatePayload = { ativo: updatedStatus };
+
+    this.clientesService.updateClient(client.id, updatePayload).subscribe({
+      next: (updatedClient) => {
+        client.ativo = updatedClient.ativo;
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar status', err);
+      }
+    });
+  }
+  deleteClient(client: ClienteDTO): void {
     if (confirm(`Tem certeza que deseja excluir o cliente ${client.nome}?`)) {
-      console.log('Excluindo cliente (simulado):', client);
-      // Lógica para chamar a API de exclusão
-      this.dataSource = this.dataSource.filter(c => c.id !== client.id);
-      alert('Cliente excluído com sucesso (simulado)!');
+      this.clientesService.delete(client.id!).subscribe({
+        next: () => {
+          this.dataSource.data = this.dataSource.data.filter(c => c.id !== client.id);
+          this.mostrarMensagem('Cliente excluído com sucesso!', 'amarelo');
+        },
+        error: (err) => {
+          console.error('Erro ao excluir cliente', err);
+          alert('Erro ao excluir cliente.');
+        }
+      });
     }
   }
 
+  mostrarMensagem(mensagem: string, tipo: 'verde' | 'amarelo' | 'vermelho' = 'verde'): void {
+    this.snackBar.open(mensagem, 'Fechar', {
+      duration: 3000,
+      panelClass: [tipo]
+    });
+  }
+
+  onInputChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.filtrarClientes(input.value);
+  }
 }

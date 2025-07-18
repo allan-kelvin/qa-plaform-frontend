@@ -114,12 +114,12 @@ export class VersionFormComponent implements OnInit {
       }
 
       if (this.isEditMode) {
-        console.log('Atualizando versão:', { ...versionData, id: this.versionId });
+
         alert('Versão atualizada com sucesso (simulado)!');
       } else {
         // Em um cenário real, o ID viria do backend após a criação
         const newId = this.mockVersions.length > 0 ? Math.max(...this.mockVersions.map(v => v.id)) + 1 : 1;
-        console.log('Criando nova versão:', { ...versionData, id: newId });
+
         alert('Versão criada com sucesso (simulado)!');
       }
       this.router.navigate(['/versions']); // Volta para a listagem

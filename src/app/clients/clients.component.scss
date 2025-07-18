@@ -1,11 +1,16 @@
-
 @import '../../styles.scss';
 
 .clients-container {
-  padding: 20px;
+  padding: 24px;
   background-color: $background-color;
-  min-height: 100%;
+  min-height: 100vh;
   box-sizing: border-box;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 400px; /* Limita a largura para não quebrar layout */
+  margin-bottom: 20px;
 }
 
 .header-section {
@@ -23,20 +28,22 @@
   button {
     display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 8px 15px;
-    font-size: 16px;
+    gap: 6px;
+    padding: 8px 16px;
+    font-weight: 500;
+    font-size: 14px;
   }
 }
 
 .clients-table-card {
   background-color: $card-color;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
 
   .table-responsive {
     overflow-x: auto;
+    padding: 10px;
   }
 
   table {
@@ -44,23 +51,29 @@
     border-collapse: collapse;
 
     th.mat-header-cell {
-      background-color: lighten($background-color, 2%);
-      color: $text-secondary;
-      font-weight: bold;
-      font-size: 14px;
-      padding: 15px 20px;
-      text-align: left;
-      border-bottom: 1px solid $input-border;
-      white-space: nowrap; // Evita quebra de linha nos cabeçalhos
+      background-color: #eeeeee; // Cinza mais forte
+      color: #424242; // Texto mais escuro
+      font-weight: 600;
+      font-size: 15px;
+      padding: 16px 20px;
+      text-transform: uppercase;
+      border-bottom: 1px solid #cccccc;
+      white-space: nowrap;
+      cursor: pointer;
+
+      // Indicador de ordenação visual
+      &.mat-sort-header-sorted {
+        color: #2e7d32; // Verde quando a coluna está ordenada
+      }
     }
 
     td.mat-cell {
       color: $text-color;
       font-size: 15px;
-      padding: 15px 20px;
-      border-bottom: 1px solid $input-border;
+      padding: 16px 20px;
+      border-bottom: 1px solid #e0e0e0;
       vertical-align: middle;
-      white-space: nowrap; // Evita quebra de linha nos dados da célula
+      white-space: nowrap;
 
       &:last-child {
         text-align: center;
@@ -76,46 +89,51 @@
 .status-chip {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
-  border-radius: 16px;
-  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
   white-space: nowrap;
-  background-color: #e0e0e0; // Default
+
+  background-color: #e0e0e0;
   color: #424242;
 
   &.status-active {
-    background-color: #e8f5e9; // Verde claro
-    color: #2e7d32; // Verde escuro
+    background-color: #e8f5e9;
+    color: #2e7d32;
   }
+
   &.status-inactive {
-    background-color: #ffebee; // Vermelho claro
-    color: #d32f2f; // Vermelho escuro
+    background-color: #ffebee;
+    color: #c62828;
   }
+
   &.status-suspended {
-    background-color: #fffde7; // Amarelo claro
-    color: #fbc02d; // Amarelo escuro
+    background-color: #fffde7;
+    color: #fbc02d;
   }
 }
 
-/* Responsividade para telas menores */
+
+/* Responsividade */
 @media (max-width: 768px) {
   .header-section {
     flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
+    gap: 12px;
   }
-  .header-section h2 {
-    margin-bottom: 0;
-  }
+
   .clients-table-card {
     padding: 0;
   }
+
   table {
     font-size: 14px;
-    th.mat-header-cell, td.mat-cell {
-      padding: 10px 15px;
+
+    th.mat-header-cell,
+    td.mat-cell {
+      padding: 12px 14px;
     }
   }
 }

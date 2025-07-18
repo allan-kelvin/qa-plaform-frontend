@@ -53,11 +53,11 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { email, senha } = this.loginForm.value;
-      console.log('Tentando logar com:', { email, senha });
+
 
       this.authService.login({ email, senha }).subscribe({
         next: response => {
-          console.log('Login bem-sucedido no frontend:', response);
+
 
           this.snackBar.open('Login realizado com sucesso!', 'Fechar', {
             duration: 3000,
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
           });
 
           setTimeout(() => {
-            console.log('[Login] Redirecionando para /dashboard...');
+
             this.router.navigate(['/dashboard']);
           }, 100);
 

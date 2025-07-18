@@ -64,13 +64,13 @@
 .main-header {
   background-color: $sidebar-bg-color;
   color: white;
-  z-index: 2; /* Garante que o header fique acima de outros elementos */
-  display: flex; /* Para centralizar os itens verticalmente */
-  align-items: center; /* Centraliza verticalmente */
+  z-index: 2;
+  display: flex;
+  align-items: center;
 }
 
 .spacer {
-  flex: 1 1 auto; /* Empurra os itens para a direita */
+  flex: 1 1 auto;
 }
 
 .header-button {
@@ -78,12 +78,12 @@
 }
 
 .content {
-  flex-grow: 1; /* Faz o conteúdo principal ocupar o espaço restante */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; /* Permite rolagem apenas no eixo Y para o conteúdo se ele extravasar */
-  height: 100vh; /* Garante que o content container preencha a altura total, menos o header */
-  box-sizing: border-box; /* Inclui padding/border na altura/largura */
+  overflow-y: auto;
+  height: 100vh;
+
 }
 
 .router-outlet-container {
@@ -101,15 +101,15 @@
   .sidebar {
     width: 200px;
   }
-  /* Em telas menores, a sidebar deve sobrepor o conteúdo (modo 'over') */
+
   .mat-sidenav-container {
-    flex-direction: column; /* No modo over, o layout é mais vertical */
+    flex-direction: column;
   }
   .mat-sidenav {
-    position: fixed; /* Fixa a sidebar na tela */
-    z-index: 3;      /* Garante que ela esteja acima de tudo quando aberta */
+    position: fixed;
+    z-index: 3;
   }
   .mat-sidenav-content {
-    margin-left: 0 !important; /* Reseta margem para o modo over */
+    margin-left: 0 !important;
   }
 }
