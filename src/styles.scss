@@ -1,5 +1,3 @@
-
-
 @use '@angular/material' as mat;
 
 @include mat.core();
@@ -42,7 +40,8 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: $sidebar-text-color;
 }
@@ -53,20 +52,17 @@ app-root {
   height: 100%;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.snackbar-success {
-  background-color: #4CAF50 !important;
-  color: white !important;
+.verde {
+  background-color: #4caf50 !important; /* Verde Material */
+  color: #fff !important;
 }
 
-.snackbar-error {
-  background-color: #F44336 !important;
-  color: white !important;
+.amarelo {
+  background-color: #ff9800 !important; /* Amarelo Material */
+  color: #000 !important;
 }
 
-.snackbar-info {
-  background-color: #2196F3 !important;
-  color: white !important;
+.vermelho {
+  background-color: #f44336 !important; /* Vermelho Material */
+  color: #fff !important;
 }

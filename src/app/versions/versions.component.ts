@@ -69,7 +69,6 @@ export class VersionsComponent {
 
   deleteVersion(version: Version): void {
     if (confirm(`Tem certeza que deseja excluir a versão ${version.nome} do projeto ${version.cliente}?`)) {
-      console.log('Excluindo versão (simulado):', version);
       this.dataSource = this.dataSource.filter(v => v.id !== version.id);
       alert('Versão excluída com sucesso (simulado)!');
     }
